@@ -5,13 +5,15 @@
 #include "badres.h"
 #include "fstream"
 #include <QMessageBox>
-
+#include <winsock2.h>
+#include <iostream>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
 }
 
 MainWindow::~MainWindow()
@@ -53,8 +55,9 @@ void MainWindow::on_pushButton_3_clicked()
     double size;
     bool func_res;
     bool serv;
-    QString type;
+    char type;
     QString result;
+    serv=false;
     sugar_count = (ui->sugar_count->text()).toDouble();
     if (sugar_count == 0)
             sugar = false;
@@ -73,15 +76,15 @@ void MainWindow::on_pushButton_3_clicked()
     tung_count = (ui->tung_count->text()).toDouble();
 
     if (ui->radioButton->isChecked())
-        type = ui->radioButton->text();
+        type = 'l';
     if (ui->radioButton_2->isChecked())
-        type = ui->radioButton_2->text();
+        type = 'k';
     if (ui->radioButton_3->isChecked())
-        type = ui->radioButton_3->text();
+        type = 'e';
     if (ui->radioButton_4->isChecked())
-        type = ui->radioButton_4->text();
+        type = 'm';
     if (ui->radioButton_5->isChecked())
-        type = ui->radioButton_5->text();
+        type = 'c';
     if (ui->radioButton_6->isChecked())
         size = 1;
     if (ui->radioButton_7->isChecked())
@@ -97,7 +100,7 @@ void MainWindow::on_pushButton_3_clicked()
     else
         result = "True";
     fstream log("serviceLog.txt", ios::in | ios::out | ios::app);
-    log << type.toStdString() << ", " << tung_count<< ", " << milk << ", " << milk_count << ", " << choco << ", " << choco_count << ", " << sugar << ", " << sugar_count << ", " << serv << ", " << size << ": " << result.toStdString() << "\n\n";
+    log << type << ", " << tung_count<< ", " << milk << ", " << milk_count << ", " << choco << ", " << choco_count << ", " << sugar << ", " << sugar_count << ", " << serv << ", " << size << ": " << result.toStdString() << "\n\n";
     log.close();
     if (func_res == true)
         QMessageBox::information(this," ", "Cofee is ready");

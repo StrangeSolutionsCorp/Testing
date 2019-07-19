@@ -1,5 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
+#include <winsock2.h>
+#include <iostream>
 
 #include <QMainWindow>
 
